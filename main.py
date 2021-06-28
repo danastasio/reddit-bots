@@ -11,14 +11,14 @@ from credentials import FrodoCredentials;
 
 class Bot():
 	def previously_responded(filename: str, comment_id: str) -> bool :
-        '''
-        Determine whether or not a comment has been previously responded to by a bot
-        Parameters:
-            filename (str): The name of the history file to search
-            comment_id (str): The ID of the comment in question
-        Returns:
-            boolean
-        '''
+		'''
+		Determine whether or not a comment has been previously responded to by a bot
+		Parameters:
+			filename (str): The name of the history file to search
+			comment_id (str): The ID of the comment in question
+		Returns:
+			boolean
+		'''
 		with open(filename, 'r') as history:
 			csv = history.read().splitlines()
 			data = list(csv)
@@ -30,28 +30,28 @@ class Bot():
 			return False
 
 	def save_comment_id(filename: str, comment_id: str) -> None:
-        '''
-        Write the comment to `filename` so we do not reply again
-        Parameters:
-            filename (str): The name of the history file to append to
-            comment_id (str): The ID of the comment in question
-        Returns:
-            boolean
-        '''
+		'''
+		Write the comment to `filename` so we do not reply again
+		Parameters:
+			filename (str): The name of the history file to append to
+			comment_id (str): The ID of the comment in question
+		Returns:
+			boolean
+		'''
 		with open(filename, 'a') as old_history:
 			old_history.write(comment_id + '\n')
 
 	def bind(c_id: str, c_secret: str,pw: str,u_name: str) -> object:
-        '''
-        Bind the script to the reddit api
-        Parameters:
-            c_id (str): The client_id for the bot for the reddit API
-            c_secret (str): The client_secret for the bot for the reddit API
-            pw (str): The password for the bot
-            username (str): The username for the bot
-        Returns:
-            api_bind (object)
-        '''
+		'''
+		Bind the script to the reddit api
+		Parameters:
+			c_id (str): The client_id for the bot for the reddit API
+			c_secret (str): The client_secret for the bot for the reddit API
+			pw (str): The password for the bot
+			username (str): The username for the bot
+		Returns:
+			api_bind (object)
+		'''
 		api_bind = praw.Reddit(client_id=c_id,
 				client_secret=c_secret,
 				password=pw,
@@ -270,7 +270,7 @@ class Frodo(Bot):
 "I wish the ring had never come to me. I wish none of this had happened.",
 "And it is also said, 'Go not to the Elves for counsel, for they will say both no and yes.'",
 "It is useless to meet revenge with revenge: It will heal nothing.",
-"I feel that as longa s the shite lies behind, safe and comfortable, I shall find wander more bearable.",
+"I feel that as long as The Shire lies behind, safe and comfortable, I shall find wander more bearable.",
 "Do not be too sad, {0}. You cannot always be torn in two".format(author),
 "I am naked in the dark, {0}, and there is no veil between me and the wheel of fire.".format(author),
 "I'm glad to be with you, {0}, here at the end of all things.".format(author),
@@ -286,14 +286,14 @@ class Frodo(Bot):
 "Because we've been here before. We're going in circles!",
 "If you ask it of me, I will give you the One Ring",
 "Mordor, {0}, is it left, or right?".format(author),
-"Come on, Sam. Remember what Bilbo used to say: \"It's a dangerous business, Frodo. Going out your door. You step onto the road, and if you don't keep your feet there's no knowing where you might be swept off to.\"",
+"Come on, {0}. Remember what Bilbo used to say: \"It's a dangerous business, Frodo. Going out your door. You step onto the road, and if you don't keep your feet there's no knowing where you might be swept off to.\"".format(author),
 "Nothing. There's nothing. Wait. There are markings. It's some form of Elvish. I can't read it.",
 "Before you came along, we Bagginses were very well thought of. Never had any adventures or did anything unexpected.",
 "Whatever you did, you've been officially labeled a disturber of the peace.",
 "Alright then, keep your secrets!",
 "Yes, you have seen a thing or two since you last peeped out of a looking-glass",
 "I can manage it. I must.",
-"It must often be so, Sam, when things are in danger: some one has to give them up, lose them, so that others may keep them.",
+"It must often be so, {0}, when things are in danger: some one has to give them up, lose them, so that others may keep them.".format(author),
 "I should like to leave the Shire, if I could – though there have been times when I thought the inhabitants too stupid and dull for words, and have felt that an earthquake or an invasion of dragons might be good for them. But I don’t feel like that now. I feel that as long as the Shire lies behind, safe and comfortable, I shall find wandering more bearable: I shall know that somewhere there is a firm foothold, even if my feet cannot stand there again.",
 "Then I know what I must do. It's just... I'm afraid to do it",
 "I miss the Shire. I spent all my childhood pretending I was off somewhere else. Off with you, on one of your adventures.",
