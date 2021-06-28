@@ -261,7 +261,7 @@ class Frodo(Bot):
 "You swore! You swore on the precious! {0} promised!".format(author),
 "Because we've been here before. We're going in circles!",
 "If you ask it of me, I will give you the One Ring",
-"Mordor, {0}, is it left, or right?"
+"Mordor, {0}, is it left, or right?".format(author),
 "Come on, Sam. Remember what Bilbo used to say: \"It's a dangerous business, Frodo. Going out your door. You step onto the road, and if you don't keep your feet there's no knowing where you might be swept off to.\"",
 "Nothing. There's nothing. Wait. There are markings. It's some form of Elvish. I can't read it.",
 "Before you came along, we Bagginses were very well thought of. Never had any adventures or did anything unexpected.",
