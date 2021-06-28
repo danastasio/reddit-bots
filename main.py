@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+#TODO: Use sqlite instead of a csv
+
 import praw;
 import time;
 import random;
@@ -9,6 +11,14 @@ from credentials import FrodoCredentials;
 
 class Bot():
 	def previously_responded(filename: str, comment_id: str) -> bool :
+        '''
+        Determine whether or not a comment has been previously responded to by a bot
+        Parameters:
+            filename (str): The name of the history file to search
+            comment_id (str): The ID of the comment in question
+        Returns:
+            boolean
+        '''
 		with open(filename, 'r') as history:
 			csv = history.read().splitlines()
 			data = list(csv)
@@ -20,10 +30,28 @@ class Bot():
 			return False
 
 	def save_comment_id(filename: str, comment_id: str) -> None:
+        '''
+        Write the comment to `filename` so we do not reply again
+        Parameters:
+            filename (str): The name of the history file to append to
+            comment_id (str): The ID of the comment in question
+        Returns:
+            boolean
+        '''
 		with open(filename, 'a') as old_history:
 			old_history.write(comment_id + '\n')
 
 	def bind(c_id: str, c_secret: str,pw: str,u_name: str) -> object:
+        '''
+        Bind the script to the reddit api
+        Parameters:
+            c_id (str): The client_id for the bot for the reddit API
+            c_secret (str): The client_secret for the bot for the reddit API
+            pw (str): The password for the bot
+            username (str): The username for the bot
+        Returns:
+            api_bind (object)
+        '''
 		api_bind = praw.Reddit(client_id=c_id,
 				client_secret=c_secret,
 				password=pw,
