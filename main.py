@@ -34,7 +34,6 @@ class Bot():
 class Saruman(Bot):
 	history_file = 'saruman_history.csv'
 
-	
 	def search() -> None:
 		reddit = Saruman.bind(SarumanCredentials.client_id.value,SarumanCredentials.client_secret.value,SarumanCredentials.password.value,SarumanCredentials.username.value)
 
@@ -109,7 +108,6 @@ class Saruman(Bot):
 				else:
 					pass
 
-
 	def random_comment(author: str) -> str:
 		QUOTES = ['Always You Must Meddle, Looking For Trouble Where None Exists.',
 'Go now! Leave sauron to me.',
@@ -152,7 +150,6 @@ class Saruman(Bot):
 class Galadriel(Bot):
 	history_file = 'galadriel_history.csv'
 
-	
 	def search() -> None:
 		reddit = Galadriel.bind(GaladrielCredentials.client_id.value,GaladrielCredentials.client_secret.value,GaladrielCredentials.password.value,GaladrielCredentials.username.value)
 
@@ -207,7 +204,6 @@ class Galadriel(Bot):
 class Frodo(Bot):
 	history_file = 'frodo_history.csv'
 
-	
 	def search() -> None:
 		reddit = Frodo.bind(FrodoCredentials.client_id.value,FrodoCredentials.client_secret.value,FrodoCredentials.password.value,FrodoCredentials.username.value)
 
