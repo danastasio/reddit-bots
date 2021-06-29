@@ -13,6 +13,7 @@ class Bot():
 	def previously_responded(filename: str, comment_id: str) -> bool :
 		'''
 		Determine whether or not a comment has been previously responded to by a bot
+
 		Parameters:
 			filename (str): The name of the history file to search
 			comment_id (str): The ID of the comment in question
@@ -32,6 +33,7 @@ class Bot():
 	def save_comment_id(filename: str, comment_id: str) -> None:
 		'''
 		Write the comment to `filename` so we do not reply again
+
 		Parameters:
 			filename (str): The name of the history file to append to
 			comment_id (str): The ID of the comment in question
@@ -44,6 +46,7 @@ class Bot():
 	def bind(c_id: str, c_secret: str,pw: str,u_name: str) -> object:
 		'''
 		Bind the script to the reddit api
+
 		Parameters:
 			c_id (str): The client_id for the bot for the reddit API
 			c_secret (str): The client_secret for the bot for the reddit API
@@ -57,12 +60,20 @@ class Bot():
 				password=pw,
 				user_agent='chat by /u/AutoCommentor',
 				username=u_name)
-		return api_bind; 
+		return api_bind;
 
 class Saruman(Bot):
 	history_file = 'saruman_history.csv'
 
 	def search() -> None:
+		'''
+		Searches reddit comments for comments that mention 'Saruman'
+
+		Parameters:
+			None
+		Returns:
+			None
+		'''
 		reddit = Saruman.bind(SarumanCredentials.client_id.value,SarumanCredentials.client_secret.value,SarumanCredentials.password.value,SarumanCredentials.username.value)
 
 		for results in reddit.subreddit('lotrmemes').comments():
@@ -70,7 +81,7 @@ class Saruman(Bot):
 			body = results.body
 			body=body.lower()
 			comment_id = results.id
-		
+
 			found_general=body.find('saruman')
 			found_theoden=body.find('i will draw you, saruman, as poison is drawn from a wound')
 			found_theoden_isengard=body.find('you need not follow him. you were not always as you are now. you were once a man of rohan. come down')
@@ -118,7 +129,7 @@ class Saruman(Bot):
 							pass
 						except:
 							break
-	
+
 					elif found_theoden_isengard != -1 and results.author == 'Theoden-Bot':
 						print("Isengard detected: {0}".format(body))
 						try:
@@ -137,6 +148,14 @@ class Saruman(Bot):
 					pass
 
 	def random_comment(author: str) -> str:
+		'''
+		Returns a random quote when called
+
+		Parameters:
+			author (str): The username of the comment we are replying to
+		Returns:
+			quote (str): A random quote from the list
+		'''
 		QUOTES = ['Always You Must Meddle, Looking For Trouble Where None Exists.',
 'Go now! Leave sauron to me.',
 'The hour is later than you think.',
@@ -179,6 +198,14 @@ class Galadriel(Bot):
 	history_file = 'galadriel_history.csv'
 
 	def search() -> None:
+		'''
+		Searches reddit comments for comments that mention 'Galadriel'
+
+		Parameters:
+			None
+		Returns:
+			None
+		'''
 		reddit = Galadriel.bind(GaladrielCredentials.client_id.value,GaladrielCredentials.client_secret.value,GaladrielCredentials.password.value,GaladrielCredentials.username.value)
 
 		for results in reddit.subreddit('lotrmemes').comments():
@@ -186,9 +213,9 @@ class Galadriel(Bot):
 			body = results.body
 			body=body.lower()
 			comment_id = results.id
-			
+
 			found_general=body.find('galadriel')
-	
+
 			if Galadriel.previously_responded(Galadriel.history_file, comment_id):
 				return "Skipped"
 
@@ -205,6 +232,14 @@ class Galadriel(Bot):
 					pass
 
 	def random_comment(author: str) -> str:
+		'''
+		Returns a random quote when called
+
+		Parameters:
+			author (str): The username of the comment we are replying to
+		Returns:
+			quote (str): A random quote from the list
+		'''
 		QUOTES = ['And now at last it comes. You will give me the Ring freely! In place of the Dark Lord you will set up a Queen. And I shall not be dark, but beautiful and terrible as the Morning and the Night! Fair as the Sea and the Sun and the Snow upon the Mountain! Dreadful as the Storm and the Lightning! Stronger than the foundations of the earth. All shall love me and despair!',
 'And you, {0}, I come to you last who are not last in my thoughts. For you I have prepared this. In this phial, is caught the light of Eärendil\'s star, set amid the waters of my fountain. It will shine still brighter when night is about you. May it be a light to you in dark places, when all other lights go out.'.format(author),
 'Remember Galadriel and her Mirror!',
@@ -233,6 +268,14 @@ class Frodo(Bot):
 	history_file = 'frodo_history.csv'
 
 	def search() -> None:
+		'''
+		Searches reddit comments for comments that mention 'Frodo'
+
+		Parameters:
+			None
+		Returns:
+			None
+		'''
 		reddit = Frodo.bind(FrodoCredentials.client_id.value,FrodoCredentials.client_secret.value,FrodoCredentials.password.value,FrodoCredentials.username.value)
 
 		for results in reddit.subreddit('lotrmemes').comments():
@@ -240,7 +283,7 @@ class Frodo(Bot):
 			body = results.body
 			body=body.lower()
 			comment_id = results.id
-		
+
 			found_general=body.find('frodo')
 
 			if Frodo.previously_responded(Frodo.history_file, comment_id):
@@ -258,6 +301,14 @@ class Frodo(Bot):
 				else:
 					pass
 	def random_comment(author: str) -> str:
+		'''
+		Returns a random quote when called
+
+		Parameters:
+			author (str): The username of the comment we are replying to
+		Returns:
+			quote (str): A random quote from the list
+		'''
 		QUOTES = [
 "What a pity that Bilbo did not stab that vile creature, when he had a chance!",
 "You are wise and powerful. Will you not take the Ring?",
@@ -299,13 +350,19 @@ class Frodo(Bot):
 "I miss the Shire. I spent all my childhood pretending I was off somewhere else. Off with you, on one of your adventures.",
 ]
 		return random.choice(QUOTES)
-while True:
-	try:
-		Saruman.search()
-		Galadriel.search()
-		Frodo.search()
-		time.sleep(5)
-	except KeyboardInterrupt:
-		break
-	except Exception as e:
-		print(e)
+
+def main():
+	while True:
+		try:
+			Saruman.search()
+			Galadriel.search()
+			Frodo.search()
+			time.sleep(5)
+		except KeyboardInterrupt:
+			# If you remove this then you won't be able to interrupt the script
+			break
+		except Exception as e:
+			print(e)
+
+if __name__ == '__main__':
+	main()
