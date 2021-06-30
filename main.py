@@ -137,6 +137,14 @@ class Saruman(Bot):
 							pass
 						except:
 							break
+
+					elif found_gandalf_sauron != -1 and results.author == 'gandalf-bot':
+                		print("Found the eye of sauron: {0}".format(body))
+                		try:
+                    		results.reply('He is gathering all evil to him. Very soon he will have summoned an army great enough to launch an assault upon Middle-Earth')
+                		except:
+                    		break
+
 					else:
 						print("General Saruman detected: {0}".format(results.body))
 						try:
@@ -144,6 +152,7 @@ class Saruman(Bot):
 							pass
 						except:
 							break
+
 				else:
 					pass
 
@@ -352,6 +361,7 @@ class Frodo(Bot):
 		return random.choice(QUOTES)
 
 def main():
+
 	while True:
 		try:
 			Saruman.search()
