@@ -89,6 +89,7 @@ class Saruman(Bot):
 			found_orcs=body.find('orcs')
 			found_uruk=body.find('uruk')
 			found_mountain_pass=body.find('it\'s saruman!')
+			found_gandalf_sauron=body.find('the eye of sauron')
 
 			if Saruman.previously_responded(Saruman.history_file, comment_id):
 				return "Skipped"
@@ -139,11 +140,11 @@ class Saruman(Bot):
 							break
 
 					elif found_gandalf_sauron != -1 and results.author == 'gandalf-bot':
-                		print("Found the eye of sauron: {0}".format(body))
-                		try:
-                    		results.reply('He is gathering all evil to him. Very soon he will have summoned an army great enough to launch an assault upon Middle-Earth')
-                		except:
-                    		break
+						print("Found the eye of sauron: {0}".format(body))
+						try:
+							results.reply('He is gathering all evil to him. Very soon he will have summoned an army great enough to launch an assault upon Middle-Earth')
+						except:
+							break
 
 					else:
 						print("General Saruman detected: {0}".format(results.body))
