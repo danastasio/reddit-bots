@@ -194,7 +194,7 @@ class Saruman(Bot):
 'I have seen it',
 'I gave you the chance of aiding me willingly {0}. But you have elected the way of... pain!'.format(author),
 'You have grown, {0}. Yes, you have grown very much. You are wise, and cruel. you have robbed my revenge of sweetness, and now I must go hence in bitterness, in debt to your mercy. I hate it and you! Well, I go and I will trouble you no more. But do not expect me to wish you health and long life. You will have neither. But that is not my doing. I merely foretell.'.format(author),
-'A new power is rising! It\'s victory is at hand. This night, the land will be stained with the blood of Rohan! March to Helms Deep! Leave none alive! TO WAR!',
+'A new power is rising! Its victory is at hand. This night, the land will be stained with the blood of Rohan! March to Helms Deep! Leave none alive! TO WAR!',
 'There will be no dawn for men',
 'Why? Why should we fear to use them?',
 'Save your pity and your mercy! I have no use for it!',
