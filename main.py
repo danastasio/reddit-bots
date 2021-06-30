@@ -277,7 +277,7 @@ class Galadriel(Bot):
 'Hear all ye Elves! Let none say again that Dwarves are grasping and ungracious! Yet surely, Gimli son of Glóin, you desire something that I could give? Name it, I bid you! You shall not be the only guest without a gift.',
 'Maybe the paths that you each shall tread are already laid before your feet, though you do not see them',
 'Even the smallest person can change the course of the future',
-'Welcome {0} of the Shire... one who has seen the eye!',
+'Welcome {0} of the Shire... one who has seen the eye!'.format(author),
 'I know what it is you saw, for it is also in my mind.',
 'For the time would soon come when Hobbits would shape the fortunes of all.',
 'The world is changed. I feel it in the water. I feel it in the earth. I smell it in the air. Much that once was is lost, for none now live who remember it.',
