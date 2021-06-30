@@ -200,7 +200,26 @@ class Saruman(Bot):
 'Save your pity and your mercy! I have no use for it!',
 'Smoke rises from the mountain of Doom. The hour grows late, and {0} rides to Isengard seeking my council. For that is why you have come, is it not?'.format(author),
 'The power of Isengard is at your command, {0}, Lord of the Earth'.format(author),
-'Embrace the power of the ring, or embrace your own destruction!'
+'Embrace the power of the ring, or embrace your own destruction!',
+'I want them armed and ready to march within two weeks',
+'The forest of Fangorn lies on our doorstep... Burn it!',
+'Rohan, my lord, is ready to fall.',
+'Rohan is mine!',
+'*sniff sniff* You stink of horse',
+'It matters not. The world of men shall fall',
+'Send out your warg riders!',
+'Build a dam, block the stream, work the furnaces, night and day!',
+'The horsemen took your village. They drove your people into the hills to scratch a living off rocks! Take back the lands they stole from you! Burn every village!',
+'We have only to remove those who oppose us. It will begin in Rohan. Too long have these peasants stood against you, but no more',
+'I know not why I have had the paitence to speak to you',
+'Long ago I offered you a state beyond your merit and your wit. I have offered it again, so that those whom you mislead may clearly see the choice of roads. You give me brag and abuse. So be it. Go back to your huts!',
+'Dotard! What is the house of {0} but a thatched barn where brigands drink in the reek, and their brats roll on the floor among the dogs?'.format(author),
+'White! It serves as a beginning. White cloth may be dyed. The white page can be overwritten; and the white light can be broken!',
+'You need not speak to me as to one of the fools that you take for friends. I have not brought you hither to be instructed by you, but to give you a choice',
+'The elder days are gone. The younger days are beginning. The time of the elves is over, but our time is at hand: the world of Men, which we must rule. But we must have power, power to order all things as we will, for that good which only the Wise can see.',
+'And listen, {0}, my old friend! I said we, for we it may be, if you will join with me! A new power is rising. Against it the old allies and policies will not avail us. There is no hope left in Elves or dying Numenor. This then is one choice before you, before us. We may join with that Power. It would be wise, {0}'.format(author),
+'Well, I see that this wise course does not commend itself to you',
+'And why not, {0}? The ruling ring? If we could command that, then the power would pass to us. That is in truth why I brought you here. For I have many eyes in my service, and I believe that you know where this precious thing now lies. Is it not so? Or why do the nine ask for the Shire, and what is your business there?'.format(author),
 ]
 		return random.choice(QUOTES)
 
