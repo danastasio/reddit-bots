@@ -63,7 +63,7 @@ class Bot():
 		return api_bind;
 
 	def comment_reply_chance() -> bool:
-		return random.randint(0,4) == 3
+		return random.randint(0,4) != 3
 
 class Saruman(Bot):
 	history_file = 'saruman_history.csv'
@@ -99,12 +99,13 @@ class Saruman(Bot):
 				return "Skipped"
 
 			else:
-				if Saruman.comment_reply_chance() and '!saruman' not in body and 'i will draw you, saruman, as poison is drawn from a wound!' not in body:
-					print("Found Saruman: {0}		Not a specific call and rolled a pass".format(body))
-					continue
-
-				elif found_general != -1 or '!saruman' in body:
+				if found_general != -1 or '!saruman' in body:
 					Saruman.save_comment_id(Saruman.history_file, comment_id)
+
+					if Saruman.comment_reply_chance() and '!saruman' not in body and 'i will draw you, saruman, as poison is drawn from a wound!' not in body:
+						print("Found Saruman: {0}		Not a specific call and rolled a pass".format(body))
+						Saruman.save_comment_id(Saruman.history_file, comment_id)
+						continue
 
 					if found_orcs != -1:
 						print("Saruman orcs detected: {0}".format(body))
@@ -342,6 +343,7 @@ class Frodo(Bot):
 						print("Comment: {0}	Not a specific call and rolled a pass".format(body))
 						Frodo.save_comment_id(Frodo.history_file, comment_id)
 						continue
+
 					else:
 						Frodo.save_comment_id(Frodo.history_file, comment_id)
 						print("Frodo detected: {0}".format(results.body))
