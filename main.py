@@ -93,17 +93,17 @@ class Saruman(Bot):
 			found_uruk=body.find('uruk')
 			found_mountain_pass=body.find('it\'s saruman!')
 			found_gandalf_sauron=body.find('the eye of sauron')
-			found_specific_call=body.find('!saruman')
 
 			# Determine whether or not to respond to a valid comment
 			if Saruman.previously_responded(Saruman.history_file, comment_id):
 				return "Skipped"
 
-			if Saruman.comment_reply_chance() == False or '!saruman' not in body:
-				return "Not a specific call and rolled a pass"
-
 			else:
-				if found_general != -1:
+				if Saruman.comment_reply_chance() == False and '!saruman' not in body and 'i will draw you, saruman, as poison is drawn from a wound!' not in body:
+					print("Not a specific call and rolled a pass")
+					continue
+
+				if found_general != -1 or '!saruman' in body:
 					Saruman.save_comment_id(Saruman.history_file, comment_id)
 
 					if found_orcs != -1:
@@ -254,12 +254,16 @@ class Galadriel(Bot):
 			found_general=body.find('galadriel')
 
 			if Galadriel.previously_responded(Galadriel.history_file, comment_id):
-				return "Skipped"
+				continue
+				#return "Skipped"
 
-			if Galadriel.comment_reply_chance() == False or '!galadriel' not in body:
-				return "Not a specific call and rolled a pass"
+
 
 			else:
+				if Galadriel.comment_reply_chance() == False and '!galadriel' not in body:
+					print("Not a specific call and rolled a pass")
+					continue
+
 				if found_general != -1 and results.author != 'galadriel_bot':
 					Galadriel.save_comment_id(Galadriel.history_file, comment_id)
 					print("Galadriel detected: {0}".format(results.body))
@@ -329,10 +333,11 @@ class Frodo(Bot):
 			if Frodo.previously_responded(Frodo.history_file, comment_id):
 				return "Skipped"
 
-			if Frodo.comment_reply_chance() == False or '!frodo' not in body:
-				return "Not a specific call and rolled a pass"
-
 			else:
+				if Frodo.comment_reply_chance() == False and '!frodo' not in body:
+					print("Not a specific call and rolled a pass")
+					continue
+
 				if found_general != -1 and results.author != 'frodo_bot':
 					Frodo.save_comment_id(Frodo.history_file, comment_id)
 					print("Frodo detected: {0}".format(results.body))
