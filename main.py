@@ -62,6 +62,9 @@ class Bot():
 				username=u_name)
 		return api_bind;
 
+	def comment_reply_chance() -> bool:
+		return random.randint(0,4) == 3
+
 class Saruman(Bot):
 	history_file = 'saruman_history.csv'
 
@@ -90,9 +93,14 @@ class Saruman(Bot):
 			found_uruk=body.find('uruk')
 			found_mountain_pass=body.find('it\'s saruman!')
 			found_gandalf_sauron=body.find('the eye of sauron')
+			found_specific_call=body.find('!saruman')
 
+			# Determine whether or not to respond to a valid comment
 			if Saruman.previously_responded(Saruman.history_file, comment_id):
 				return "Skipped"
+
+			if Saruman.comment_reply_chance() == False or '!saruman' not in body:
+				return "Not a specific call and rolled a pass"
 
 			else:
 				if found_general != -1:
@@ -248,6 +256,9 @@ class Galadriel(Bot):
 			if Galadriel.previously_responded(Galadriel.history_file, comment_id):
 				return "Skipped"
 
+			if Galadriel.comment_reply_chance() == False or '!galadriel' not in body:
+				return "Not a specific call and rolled a pass"
+
 			else:
 				if found_general != -1 and results.author != 'galadriel_bot':
 					Galadriel.save_comment_id(Galadriel.history_file, comment_id)
@@ -317,6 +328,9 @@ class Frodo(Bot):
 
 			if Frodo.previously_responded(Frodo.history_file, comment_id):
 				return "Skipped"
+
+			if Frodo.comment_reply_chance() == False or '!frodo' not in body:
+				return "Not a specific call and rolled a pass"
 
 			else:
 				if found_general != -1 and results.author != 'frodo_bot':
