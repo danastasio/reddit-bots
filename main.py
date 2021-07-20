@@ -99,11 +99,11 @@ class Saruman(Bot):
 				return "Skipped"
 
 			else:
-				if Saruman.comment_reply_chance() == False and '!saruman' not in body and 'i will draw you, saruman, as poison is drawn from a wound!' not in body:
-					print("Not a specific call and rolled a pass")
+				if Saruman.comment_reply_chance() and '!saruman' not in body and 'i will draw you, saruman, as poison is drawn from a wound!' not in body:
+					print("Found Saruman: {0}		Not a specific call and rolled a pass".format(body))
 					continue
 
-				if found_general != -1 or '!saruman' in body:
+				elif found_general != -1 or '!saruman' in body:
 					Saruman.save_comment_id(Saruman.history_file, comment_id)
 
 					if found_orcs != -1:
@@ -260,18 +260,19 @@ class Galadriel(Bot):
 
 
 			else:
-				if Galadriel.comment_reply_chance() == False and '!galadriel' not in body:
-					print("Not a specific call and rolled a pass")
-					continue
-
 				if found_general != -1 and results.author != 'galadriel_bot':
-					Galadriel.save_comment_id(Galadriel.history_file, comment_id)
-					print("Galadriel detected: {0}".format(results.body))
-					try:
-						results.reply(Galadriel.random_comment(results.author))
-						pass
-					except:
-						break
+					if Galadriel.comment_reply_chance() and '!galadriel' not in body:
+						print("Found Galadriel: {0}		Not a specific call and rolled a pass".format(body))
+						Galadriel.save_comment_id(Galadriel.history_file, comment_id)
+						continue
+					else:
+						Galadriel.save_comment_id(Galadriel.history_file, comment_id)
+						print("Galadriel detected: {0}".format(results.body))
+						try:
+							results.reply(Galadriel.random_comment(results.author))
+							pass
+						except:
+							break
 				else:
 					pass
 
@@ -333,19 +334,22 @@ class Frodo(Bot):
 			if Frodo.previously_responded(Frodo.history_file, comment_id):
 				return "Skipped"
 
-			else:
-				if Frodo.comment_reply_chance() == False and '!frodo' not in body:
-					print("Not a specific call and rolled a pass")
-					continue
 
+
+			else:
 				if found_general != -1 and results.author != 'frodo_bot':
-					Frodo.save_comment_id(Frodo.history_file, comment_id)
-					print("Frodo detected: {0}".format(results.body))
-					try:
-						results.reply(Frodo.random_comment(results.author))
-						pass
-					except:
-						break
+					if Frodo.comment_reply_chance()  and '!frodo' not in body:
+						print("Comment: {0}	Not a specific call and rolled a pass".format(body))
+						Frodo.save_comment_id(Frodo.history_file, comment_id)
+						continue
+					else:
+						Frodo.save_comment_id(Frodo.history_file, comment_id)
+						print("Frodo detected: {0}".format(results.body))
+						try:
+							results.reply(Frodo.random_comment(results.author))
+							pass
+						except:
+							break
 				else:
 					pass
 	def random_comment(author: str) -> str:
