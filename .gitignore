@@ -1,2 +1,4 @@
 credentials.py
 *history.csv
+__pycache__/*
+*.un~
