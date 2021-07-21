@@ -62,8 +62,15 @@ class Bot():
 				username=u_name)
 		return api_bind;
 
-	def comment_reply_chance() -> bool:
-		return random.randint(0,4) != 3
+	def comment_reply_chance(MIN: int, MAX: int) -> bool:
+		return random.randint(MIN,MAX) != 3
+
+	def reply_to_comment(API_RESULTS: object, COMMENT: str) -> bool:
+		try:
+			API_RESULTS.reply(comment)
+			return True
+		except:
+			return False
 
 class Saruman(Bot):
 	history_file = 'saruman_history.csv'
@@ -85,83 +92,51 @@ class Saruman(Bot):
 			body=body.lower()
 			comment_id = results.id
 
-			found_general=body.find('saruman')
-			found_theoden=body.find('i will draw you, saruman, as poison is drawn from a wound')
-			found_theoden_isengard=body.find('you need not follow him. you were not always as you are now. you were once a man of rohan. come down')
-			found_caradhas=body.find('spies of saruman. the passage south is being watched we must take the pass of caradhras')
-			found_orcs=body.find('orcs')
-			found_uruk=body.find('uruk')
-			found_mountain_pass=body.find('it\'s saruman!')
-			found_gandalf_sauron=body.find('the eye of sauron')
+			found_general = 'saruman' in body #body.find('saruman')
+			found_theoden = 'i will draw you, saruman, as poison is drawn from a wound' in body
+			found_theoden_isengard = 'you need not follow him. you were not always as you are now. you were once a man of rohan. come down' in body
+			found_caradhas = 'spies of saruman. the passage south is being watched we must take the pass of caradhras' in body
+			found_orcs = 'orcs' in body
+			found_uruk = 'uruk' in body
+			found_mountain_pass = "it's saruman!" in body
+			found_comment_command = '!saruman' in body
 
 			# Determine whether or not to respond to a valid comment
 			if Saruman.previously_responded(Saruman.history_file, comment_id):
 				return "Skipped"
 
 			else:
-				if found_general != -1 or '!saruman' in body:
+				if found_general or found_comment_command:
 					Saruman.save_comment_id(Saruman.history_file, comment_id)
 
-					if Saruman.comment_reply_chance() and '!saruman' not in body and 'i will draw you, saruman, as poison is drawn from a wound!' not in body:
+					if Saruman.comment_reply_chance() and not found_comment_command and not found_theoden:
 						print("Found Saruman: {0}		Not a specific call and rolled a pass".format(body))
 						Saruman.save_comment_id(Saruman.history_file, comment_id)
 						continue
 
-					if found_orcs != -1:
+					elif found_orcs:
 						print("Saruman orcs detected: {0}".format(body))
-						try:
-							results.reply('Do you know how the Orcs first came into being {0}? They were elves once, taken by the dark powers, tortured and mutilated. A ruined and terrible form of life. Now... perfected. My fighting Uruk-Hai. Whom do you serve?'.format(results.author))
-							pass
-						except Exception as e:
-							print(e)
-							break
+						Saruman.reply_to_comment(results, 'Do you know how the Orcs first came into being {0}? They were elves once, taken by the dark powers, tortured and mutilated. A ruined and terrible form of life. Now... perfected. My fighting Uruk-Hai. Whom do you serve?'.format(results.author))
 
-					elif found_theoden != -1:
+					elif found_theoden:
 						print("Theoden detected: {0}".format(body))
-						try:
-							results.reply('If I go, Theoden Dies!')
-							pass
-						except:
-							break
+						Saruman.reply_to_comment(results, 'If I go, Theoden Dies!')
 
-					elif found_caradhas != -1 and results.author == 'gandalf-bot':
+					elif found_caradhas and results.author == 'gandalf-bot':
 						print("Caradhas detected: {0}".format(body))
-						try:
-							results.reply('So Gandalf, you try to lead them over Caradhras. And if that fails, where then will you go? If the mountain defeats you, will you risk a more dangerous road?')
-							pass
-						except:
-							break
+						Saruman.reply_to_comment(results, 'So Gandalf, you try to lead them over Caradhras. And if that fails, where then will you go? If the mountain defeats you, will you risk a more dangerous road?')
 
-					elif found_mountain_pass != -1 and results.author == 'gandalf-bot':
+					elif found_mountain_pass and results.author == 'gandalf-bot':
 						print("Caradhas detected: {0}".format(body))
-						try:
-							results.reply('Cuiva nwalca Carnirasse; nai yarvaxea rasselya! Cuiva nwalca Carnirasse; Nai yarvaxea rasselya; taltuva notto-carinnar!')
-							pass
-						except:
-							break
+						Saruman.reply_to_comment(results, 'Cuiva nwalca Carnirasse; nai yarvaxea rasselya! Cuiva nwalca Carnirasse; Nai yarvaxea rasselya; taltuva notto-carinnar!')
 
-					elif found_theoden_isengard != -1 and results.author == 'Theoden-Bot':
+					elif found_theoden_isengard and results.author == 'Theoden-Bot':
 						print("Isengard detected: {0}".format(body))
-						try:
-							results.reply('A Man of Rohan? What is the House of Rohan, but a thatched barn, where brigards drink in the reek, and their brats roll on the floor with the dogs?! The victory at Helm\'s Deep does not belong to you, Theoden Horse Master! You are a lesser son of greater sires!')
-							pass
-						except:
-							break
-
-					elif found_gandalf_sauron != -1 and results.author == 'gandalf-bot':
-						print("Found the eye of sauron: {0}".format(body))
-						try:
-							results.reply('He is gathering all evil to him. Very soon he will have summoned an army great enough to launch an assault upon Middle-Earth')
-						except:
-							break
+						Saruman.reply_to_comment(results, 'A Man of Rohan? What is the House of Rohan, but a thatched barn, where brigards drink in the reek, and their brats roll on the floor with the dogs?! The victory at Helm\'s Deep does not belong to you, Theoden Horse Master! You are a lesser son of greater sires!')
 
 					else:
 						print("General Saruman detected: {0}".format(results.body))
-						try:
-							results.reply(Saruman.random_comment(results.author))
-							pass
-						except:
-							break
+						Saruman.reply_to_comment(results, Saruman.random_comment(results.author))
 
 				else:
 					pass
@@ -252,28 +227,23 @@ class Galadriel(Bot):
 			body=body.lower()
 			comment_id = results.id
 
-			found_general=body.find('galadriel')
+			found_general = 'galadriel' in body
 
 			if Galadriel.previously_responded(Galadriel.history_file, comment_id):
 				continue
 				#return "Skipped"
 
-
-
 			else:
 				if found_general != -1 and results.author != 'galadriel_bot':
+					Galadriel.save_comment_id(Galadriel.history_file, comment_id)
 					if Galadriel.comment_reply_chance() and '!galadriel' not in body:
 						print("Found Galadriel: {0}		Not a specific call and rolled a pass".format(body))
-						Galadriel.save_comment_id(Galadriel.history_file, comment_id)
 						continue
+
 					else:
-						Galadriel.save_comment_id(Galadriel.history_file, comment_id)
 						print("Galadriel detected: {0}".format(results.body))
-						try:
-							results.reply(Galadriel.random_comment(results.author))
-							pass
-						except:
-							break
+						Galadriel.reply_to_comment(results, Galadriel.random_comment(results.author))
+
 				else:
 					pass
 
@@ -330,28 +300,22 @@ class Frodo(Bot):
 			body=body.lower()
 			comment_id = results.id
 
-			found_general=body.find('frodo')
+			found_general = 'frodo' in body
 
 			if Frodo.previously_responded(Frodo.history_file, comment_id):
 				return "Skipped"
 
-
-
 			else:
 				if found_general != -1 and results.author != 'frodo_bot':
+					Frodo.save_comment_id(Frodo.history_file, comment_id)
 					if Frodo.comment_reply_chance()  and '!frodo' not in body:
 						print("Comment: {0}	Not a specific call and rolled a pass".format(body))
-						Frodo.save_comment_id(Frodo.history_file, comment_id)
 						continue
 
 					else:
-						Frodo.save_comment_id(Frodo.history_file, comment_id)
 						print("Frodo detected: {0}".format(results.body))
-						try:
-							results.reply(Frodo.random_comment(results.author))
-							pass
-						except:
-							break
+						Frodo.reply_to_comment(results, Frodo.random_comment(results.author))
+
 				else:
 					pass
 	def random_comment(author: str) -> str:
@@ -406,7 +370,6 @@ class Frodo(Bot):
 		return random.choice(QUOTES)
 
 def main():
-
 	while True:
 		try:
 			Saruman.search()
