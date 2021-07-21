@@ -109,7 +109,7 @@ class Saruman(Bot):
 				if found_general or found_comment_command:
 					Saruman.save_comment_id(Saruman.history_file, comment_id)
 
-					if Saruman.comment_reply_chance() and not found_comment_command and not found_theoden:
+					if Saruman.comment_reply_chance(0, 4) and not found_comment_command and not found_theoden:
 						print("Found Saruman: {0}		Not a specific call and rolled a pass".format(body))
 						Saruman.save_comment_id(Saruman.history_file, comment_id)
 						continue
@@ -236,7 +236,7 @@ class Galadriel(Bot):
 			else:
 				if found_general != -1 and results.author != 'galadriel_bot':
 					Galadriel.save_comment_id(Galadriel.history_file, comment_id)
-					if Galadriel.comment_reply_chance() and '!galadriel' not in body:
+					if Galadriel.comment_reply_chance(0, 4) and '!galadriel' not in body:
 						print("Found Galadriel: {0}		Not a specific call and rolled a pass".format(body))
 						continue
 
@@ -308,7 +308,7 @@ class Frodo(Bot):
 			else:
 				if found_general != -1 and results.author != 'frodo_bot':
 					Frodo.save_comment_id(Frodo.history_file, comment_id)
-					if Frodo.comment_reply_chance()  and '!frodo' not in body:
+					if Frodo.comment_reply_chance(0, 4)  and '!frodo' not in body:
 						print("Comment: {0}	Not a specific call and rolled a pass".format(body))
 						continue
 
