@@ -234,7 +234,7 @@ class Galadriel(Bot):
 				#return "Skipped"
 
 			else:
-				if found_general != -1 and results.author != 'galadriel_bot':
+				if found_general and results.author != 'galadriel_bot':
 					Galadriel.save_comment_id(Galadriel.history_file, comment_id)
 					if Galadriel.comment_reply_chance(0, 4) and '!galadriel' not in body:
 						print("Found Galadriel: {0}		Not a specific call and rolled a pass".format(body))
@@ -306,7 +306,7 @@ class Frodo(Bot):
 				return "Skipped"
 
 			else:
-				if found_general != -1 and results.author != 'frodo_bot':
+				if found_general and results.author != 'frodo_bot':
 					Frodo.save_comment_id(Frodo.history_file, comment_id)
 					if Frodo.comment_reply_chance(0, 4)  and '!frodo' not in body:
 						print("Comment: {0}	Not a specific call and rolled a pass".format(body))
